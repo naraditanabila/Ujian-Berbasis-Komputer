@@ -1,0 +1,30 @@
+{
+  "name": "webapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node service.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/smartcampusplatform/ujianberbasiskomputer/webapi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "curl-request": "^1.1.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "md5": "^2.2.1",
+    "mongoose": "^5.7.12",
+    "password-hash": "^1.2.2",
+    "pg": "^7.12.1",
+    "pg-promise": "^10.2.1",
+    "promise": "^8.0.3",
+    "promises": "^0.2.5",
+    "randomatic": "^3.1.1"
+  }
+}

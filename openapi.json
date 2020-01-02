@@ -1,0 +1,774 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Computer-Based Test",
+    "description" : "Web service ini berisi layanan yang terdiri dari pengelolaan butir soal ujian, pembuatan paket soal ujian, pembuatan jadwal ujian, pelaksanaan ujian dan penilaian ujian.",
+    "contact" : {
+      "name" : "Naradita",
+      "email" : "naraditanabila@gmail.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://178.128.104.74/ujianberbasiskomputer",
+    "description" : "Web Service Ujian Berbasis Komputer"
+  } ],
+  "security" : [ {
+    "application" : [ "read", "write" ]
+  } ],
+  "tags" : [ {
+    "name" : "admin",
+    "description" : "Untuk admin/tim pembuat  soal"
+  }, {
+    "name" : "user",
+    "description" : "Untuk peserta ujian"
+  } ],
+  "paths" : {
+    "/ujian/soal" : {
+      "get" : {
+        "tags" : [ "admin" ],
+        "summary" : "displayAllSoal",
+        "description" : "Menampilkan soal keseluruhan oleh administrator",
+        "operationId" : "displayAllSoal",
+        "responses" : {
+          "200" : {
+            "description" : "Soal keseluruhan berhasil ditampilkan.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : { }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{id_admin}/soal/{id_soal}" : {
+      "put" : {
+        "tags" : [ "admin" ],
+        "summary" : "updateSoal",
+        "description" : "Mengupdate soal dengan id soal tertentu oleh administrator",
+        "operationId" : "updateSoal",
+        "parameters" : [ {
+          "name" : "id_soal",
+          "in" : "path",
+          "description" : "id soal",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id_admin",
+          "in" : "path",
+          "description" : "id administrator",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_1"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Soal berhasil diupdate."
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "admin" ],
+        "summary" : "addSoal",
+        "description" : "Memasukkan soal baru oleh administrator",
+        "operationId" : "addSoal",
+        "parameters" : [ {
+          "name" : "id_soal",
+          "in" : "path",
+          "description" : "id soal",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id_admin",
+          "in" : "path",
+          "description" : "id administrator",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_2"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Soal berhasil ditambahkan."
+          }
+        }
+      }
+    },
+    "/ujian/paket" : {
+      "get" : {
+        "tags" : [ "admin" ],
+        "summary" : "displayAllPaket",
+        "description" : "Menampilkan paket keseluruhan yag telah dibuat oleh administrator",
+        "operationId" : "displayAllPaket",
+        "responses" : {
+          "200" : {
+            "description" : "Paket yang telah dibuat berhasil ditampilkan."
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "admin" ],
+        "summary" : "PaketToUjian",
+        "description" : "Memasangkan paket soal ke ujian peserta.",
+        "operationId" : "paketToUjian",
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_3"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Paket soal berhasil dimasukkan ke dalam ujian peserta."
+          }
+        }
+      }
+    },
+    "/{id_admin}/paket/fill" : {
+      "post" : {
+        "tags" : [ "admin" ],
+        "summary" : "fillPaket",
+        "description" : "Menambahkan soal pada paket soal oleh administrator",
+        "operationId" : "fillPaket",
+        "parameters" : [ {
+          "name" : "id_admin",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_4"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Soal berhasil ditambahkan ke dalam paket."
+          }
+        }
+      }
+    },
+    "/nilai" : {
+      "get" : {
+        "tags" : [ "admin" ],
+        "summary" : "displayAllNilai",
+        "description" : "Menampilkan keseluruhan nilai yang telah dilaksanakan oleh administrator",
+        "operationId" : "displayAllNilai",
+        "responses" : {
+          "200" : {
+            "description" : "Keseluruhan nilai berhasil ditampilkan."
+          }
+        }
+      }
+    },
+    "/{id_admin}/nilai/{id_ujian}" : {
+      "put" : {
+        "tags" : [ "admin" ],
+        "summary" : "uploadNilai",
+        "description" : "Mengupdate nilai dengan id ujian tertentu oleh administrator",
+        "operationId" : "uploadNilai",
+        "parameters" : [ {
+          "name" : "id_admin",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id_ujian",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_5"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Nilai berhasil diupload."
+          }
+        }
+      }
+    },
+    "/ujian/schedule" : {
+      "get" : {
+        "tags" : [ "admin" ],
+        "summary" : "displayAllJadwal",
+        "description" : "Menampilkan jadwal keseluruhan yang belum dilaksanakan",
+        "operationId" : "displayAllJadwal",
+        "responses" : {
+          "200" : {
+            "description" : "Keseluruhan jadwal berhasil ditampilkan."
+          }
+        }
+      }
+    },
+    "/{id_admin}/paket/add" : {
+      "post" : {
+        "tags" : [ "admin" ],
+        "summary" : "addPaket",
+        "description" : "Membuat paket soal baru oleh administrator",
+        "operationId" : "addPaket",
+        "parameters" : [ {
+          "name" : "id_admin",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_7"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Paket baru berhasil ditambahkan."
+          }
+        }
+      }
+    },
+    "/{id_admin}/jadwal/{id_jadwal}" : {
+      "put" : {
+        "tags" : [ "admin" ],
+        "summary" : "updateJadwal",
+        "description" : "Mengupdate status jadwal oleh administrator",
+        "operationId" : "updateJadwal",
+        "parameters" : [ {
+          "name" : "id_admin",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id_jadwal",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_8"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Status Jadwal"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "admin" ],
+        "summary" : "uploadJadwal",
+        "description" : "Memasukkan jadwal baru oleh administrator",
+        "operationId" : "uploadJadwal",
+        "parameters" : [ {
+          "name" : "id_admin",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id_jadwal",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_9"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Jadwal baru berhasil ditambahkan"
+          }
+        }
+      }
+    },
+    "/{id_calonmhs}/jadwal" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "summary" : "displayJadwal",
+        "description" : "Menampilkan jadwal berdasarkan id calon mahasiswa tertentu oleh peserta",
+        "operationId" : "displayJadwal",
+        "parameters" : [ {
+          "name" : "id_calonmhs",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Jadwal ujian berhasil ditampilkan."
+          }
+        }
+      }
+    },
+    "/ujian/answer/{id_ujian}" : {
+      "get" : {
+        "tags" : [ "admin" ],
+        "summary" : "displayAllJawaban",
+        "description" : "Menampilkan jawaban dari peserta ujian tertentu.",
+        "operationId" : "displayAllJawaban",
+        "parameters" : [ {
+          "name" : "id_ujian",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Jawaban dari peserta ujian tertentu berhasil ditampilkan."
+          }
+        }
+      }
+    },
+    "/{id_calonmhs}/jawaban/{id_paket_soal}" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "summary" : "displayJawaban",
+        "description" : "Menampilkan list jawaban dengan id calon mahasiswa tertentu oleh peserta ujian",
+        "operationId" : "displayJawaban",
+        "parameters" : [ {
+          "name" : "id_calonmhs",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "number"
+          }
+        }, {
+          "name" : "id_paket_soal",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Jawaban dari ujian peserta berhasil ditampilkan."
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "user" ],
+        "summary" : "uploadJawaban",
+        "description" : "Mengupload jawaban dengan id paket soal dan id calon maasiswa tertentu",
+        "operationId" : "uploadJawaban",
+        "parameters" : [ {
+          "name" : "id_calonmhs",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "number"
+          }
+        }, {
+          "name" : "id_paket_soal",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_10"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Jawaban berhasil diupload"
+          }
+        }
+      }
+    },
+    "/{id_calonmhs}/ujian/{id_ujian}" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "summary" : "displaySoal",
+        "description" : "Menampilkan kumpulan soal yang terdapat pada paket soal yang telah diassign pada mahasiswa",
+        "operationId" : "displaySoal",
+        "parameters" : [ {
+          "name" : "id_calonmhs",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "number"
+          }
+        }, {
+          "name" : "id_ujian",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Soal berhasil ditampilkan."
+          }
+        }
+      }
+    },
+    "/{id_calonmhs}/nilai" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "summary" : "displayNilai",
+        "description" : "Menampilkan nilai dengan id calon mahasiswa tertentu oleh peserta",
+        "operationId" : "displayNilai",
+        "parameters" : [ {
+          "name" : "id_calonmhs",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "number"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Nilai ujian dari peserta berhasil ditampilkan."
+          }
+        }
+      }
+    },
+    "/ujian/soal/{id_paket}" : {
+      "get" : {
+        "tags" : [ "admin" ],
+        "summary" : "displayPaketSoal",
+        "description" : "Menampilkan keseluruan soal berdasarkan paket soal tertentu.",
+        "operationId" : "displayPaketSoal",
+        "parameters" : [ {
+          "name" : "id_paket",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Soal dengan paket tertentu berhasil ditampilkan."
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "body" : {
+        "type" : "object",
+        "properties" : {
+          "username" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          }
+        }
+      },
+      "body_1" : {
+        "type" : "object",
+        "properties" : {
+          "pertanyaan" : {
+            "type" : "string"
+          },
+          "opsi_a" : {
+            "type" : "string"
+          },
+          "opsi_b" : {
+            "type" : "string"
+          },
+          "opsi_c" : {
+            "type" : "string"
+          },
+          "opsi_d" : {
+            "type" : "string"
+          },
+          "opsi_e" : {
+            "type" : "string"
+          },
+          "kunci_jwbn" : {
+            "type" : "string"
+          },
+          "kategori_soal" : {
+            "type" : "string"
+          }
+        }
+      },
+      "body_2" : {
+        "required" : [ "kategori_soal", "kunci_jwbn", "opsi_a", "opsi_b", "opsi_c", "opsi_d", "opsi_e", "pertanyaan" ],
+        "type" : "object",
+        "properties" : {
+          "pertanyaan" : {
+            "type" : "string"
+          },
+          "opsi_a" : {
+            "type" : "string"
+          },
+          "opsi_b" : {
+            "type" : "string"
+          },
+          "opsi_c" : {
+            "type" : "string"
+          },
+          "opsi_d" : {
+            "type" : "string"
+          },
+          "opsi_e" : {
+            "type" : "string"
+          },
+          "kunci_jwbn" : {
+            "type" : "string"
+          },
+          "kategori_soal" : {
+            "type" : "string"
+          }
+        }
+      },
+      "body_3" : {
+        "type" : "object",
+        "properties" : {
+          "id_paket_soal" : {
+            "type" : "string"
+          },
+          "id_calonmhs" : {
+            "type" : "string"
+          },
+          "id_jawaban" : {
+            "type" : "string"
+          }
+        }
+      },
+      "body_4" : {
+        "required" : [ "id_paket", "id_paket_soal", "id_soal" ],
+        "type" : "object",
+        "properties" : {
+          "id_paket" : {
+            "type" : "string"
+          },
+          "id_soal" : {
+            "type" : "string"
+          },
+          "id_paket_soal" : {
+            "type" : "string"
+          }
+        }
+      },
+      "body_5" : {
+        "required" : [ "nilai" ],
+        "type" : "object",
+        "properties" : {
+          "nilai" : {
+            "type" : "integer"
+          }
+        }
+      },
+      "body_6" : {
+        "type" : "object",
+        "properties" : {
+          "id_calonmhs" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          }
+        }
+      },
+      "body_7" : {
+        "required" : [ "id_paket", "kategori_paket", "nama_paket" ],
+        "type" : "object",
+        "properties" : {
+          "id_paket" : {
+            "type" : "string"
+          },
+          "nama_paket" : {
+            "type" : "string"
+          },
+          "kategori_paket" : {
+            "type" : "string"
+          }
+        }
+      },
+      "body_8" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string"
+          },
+          "id_calonmhs" : {
+            "type" : "string"
+          },
+          "tempat" : {
+            "type" : "string"
+          }
+        }
+      },
+      "body_9" : {
+        "required" : [ "hari", "sesi", "tanggal" ],
+        "type" : "object",
+        "properties" : {
+          "id_calonmhs" : {
+            "type" : "string"
+          },
+          "hari" : {
+            "type" : "string"
+          },
+          "tanggal" : {
+            "type" : "string"
+          },
+          "sesi" : {
+            "type" : "string"
+          },
+          "tempat" : {
+            "type" : "string"
+          },
+          "status" : {
+            "type" : "string"
+          }
+        }
+      },
+      "body_10" : {
+        "type" : "object",
+        "properties" : {
+          "jwbn" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "application" : {
+        "type" : "oauth2",
+        "flows" : {
+          "clientCredentials" : {
+            "tokenUrl" : "http://example.com/oauth/token",
+            "scopes" : {
+              "write" : "allows modifying resources",
+              "read" : "allows reading resources"
+            }
+          }
+        }
+      }
+    }
+  }
+}
